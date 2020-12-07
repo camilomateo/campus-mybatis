@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.campus.mybatis.mapper.CursoMapper">   
+		
+	<select id="getCursoById" parameterType="string" resultType="com.campus.mybatis.beans.Curso">
+	SELECT 
+		id 					as id,
+		name 				as name,
+		description 		as description,
+		tipo_curso 			as tipoCurso,
+		tipo_formacion 		as tipoFormacion,
+		fecha_inicio 		as fechaInicio,
+		fecha_fin 			as fechaFinal,
+		activo				as activo,
+		precio				as precio
+	FROM 
+		cur01_curso
+	WHERE
+		id = #{id, jdbcType=VARCHAR}	    	
+	</select>
+	
+	<select id="getAllCursos" resultType="com.campus.mybatis.beans.Curso">
+    SELECT
+    	id 					as id,
+		name 				as name,
+		description 		as description,
+		tipo_curso 			as tipoCurso,
+		tipo_formacion 		as tipoFormacion,
+		fecha_inicio 		as fechaInicio,
+		fecha_fin 			as fechaFinal,
+		activo				as activo,
+		precio				as precio
+    FROM 
+    	cur01_curso
+    ORDER BY
+    	name
+	</select>
+	
+</mapper>

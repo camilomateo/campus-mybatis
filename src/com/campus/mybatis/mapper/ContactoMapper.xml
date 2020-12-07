@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.campus.mybatis.mapper.ContactoMapper">   
+		
+	<select id="getContactoByLike" 
+			parameterType="map" 
+			resultType="com.campus.mybatis.beans.Contacto">
+	SELECT 
+		a.id 							as id,
+		a.description 					as description,
+		a.deleted 						as deleted,
+		a.assigned_user_id				as idUsuario,
+		a.salutation 					as salutation,
+		a.first_name 					as firstName,
+		a.last_name 					as lastName,
+		a.title							as title,
+		a.department					as department,
+		a.phone_home 					as phoneHome,
+		a.phone_mobile 					as phoneMobile,
+		a.phone_work 					as phoneWork,
+		a.phone_other 					as phoneOther,
+		a.phone_fax 					as phoneFax,
+		a.primary_address_street 		as primaryAddressStreet,
+		a.primary_address_city 			as primaryAddressCity,
+		a.primary_address_state 		as primaryAddressState,
+		a.primary_address_postalcode 	as primaryAddressPostalcode,
+		a.primary_address_country 		as primaryAddressCountry,
+		a.alt_address_street 			as altAddressStreet,
+		a.alt_address_city 				as altAddressCity,
+		a.alt_address_state 			as altAddressState,
+		a.alt_address_postalcode 		as altAddressPostalcode,
+		a.alt_address_country 			as altAddressCountry,
+		a.assistant 					as assistant,
+		a.assistant_phone 				as assistantPhone,
+		a.lead_source 					as leadSource,
+		a.birthdate 					as birthdate
+	FROM 
+		contacts a
+		left outer join contacts_cstm b
+		on b.id_c = a.id
+	<where>
+		<if test="idContacto != null">
+			( a.id like #{idContacto} )
+		</if>
+		<if test="first_name != null">
+			AND ( ucase(a.first_name) like #{first_name} )
+		</if>
+		<if test="last_name != null">
+			AND ( ucase(a.last_name) like #{last_name} )
+		</if>
+		<if test="telefono != null">
+			AND ( a.phone_home like #{telefono} 
+				  OR a.phone_mobile like #{telefono}
+				  OR a.phone_work like #{telefono} 
+				  OR a.phone_other like #{telefono}
+				  OR a.assistant_phone like #{telefono} )
+		</if>
+		<if test="dni != null">
+			AND ( ucase(b.doc_identidad_c) like #{dni} )
+		</if>
+	</where>    	
+	
+	</select>
+	
+	<select id="getContactoById" parameterType="string" resultType="com.campus.mybatis.beans.Contacto">
+	SELECT 
+		id 							as id,
+		description 				as description,
+		deleted 					as deleted,
+		assigned_user_id			as idUsuario,
+		salutation 					as salutation,
+		first_name 					as firstName,
+		last_name 					as lastName,
+		title						as title,
+		department					as department,
+		phone_home 					as phoneHome,
+		phone_mobile 				as phoneMobile,
+		phone_work 					as phoneWork,
+		phone_other 				as phoneOther,
+		phone_fax 					as phoneFax,
+		primary_address_street 		as primaryAddressStreet,
+		primary_address_city 		as primaryAddressCity,
+		primary_address_state 		as primaryAddressState,
+		primary_address_postalcode 	as primaryAddressPostalcode,
+		primary_address_country 	as primaryAddressCountry,
+		alt_address_street 			as altAddressStreet,
+		alt_address_city 			as altAddressCity,
+		alt_address_state 			as altAddressState,
+		alt_address_postalcode 		as altAddressPostalcode,
+		alt_address_country 		as altAddressCountry,
+		assistant 					as assistant,
+		assistant_phone 			as assistantPhone,
+		lead_source 				as leadSource,
+		birthdate 					as birthdate
+	FROM 
+		contacts
+	WHERE
+		id = #{id, jdbcType=VARCHAR}	    	
+	</select>
+	
+	<select id="getAllContactos" resultType="com.campus.mybatis.beans.Contacto">
+    SELECT
+    	id 							as id,
+		description 				as description,
+		deleted 					as deleted,
+		assigned_user_id			as idUsuario,
+		salutation 					as salutation,
+		first_name 					as firstName,
+		last_name 					as lastName,
+		title						as title,
+		department					as department,
+		phone_home 					as phoneHome,
+		phone_mobile 				as phoneMobile,
+		phone_work 					as phoneWork,
+		phone_other 				as phoneOther,
+		phone_fax 					as phoneFax,
+		primary_address_street 		as primaryAddressStreet,
+		primary_address_city 		as primaryAddressCity,
+		primary_address_state 		as primaryAddressState,
+		primary_address_postalcode 	as primaryAddressPostalcode,
+		primary_address_country 	as primaryAddressCountry,
+		alt_address_street 			as altAddressStreet,
+		alt_address_city 			as altAddressCity,
+		alt_address_state 			as altAddressState,
+		alt_address_postalcode 		as altAddressPostalcode,
+		alt_address_country 		as altAddressCountry,
+		assistant 					as assistant,
+		assistant_phone 			as assistantPhone,
+		lead_source 				as leadSource,
+		birthdate 					as birthdate
+    FROM 
+    	contacts
+    WHERE
+    	deleted=0
+    LIMIT 100
+	</select>
+	
+	<select id="getContactoCstmById" parameterType="string" resultType="com.campus.mybatis.beans.ContactoCstm">
+	SELECT 
+		id_c						as id,
+		nivel_estudios_c			as nivelEstudios,
+		sexo_c						as sexo,
+		origen_c					as origen,
+		estado_c					as estado,
+		precio_c					as precio,
+		currency_id					as currencyId,
+		probabilidad_c				as probabilidad,
+		razon_no_interesa_c			as razonNoInteresa,
+		fecha_cierre_c				as fechaCierre,
+		linea_actual_c				as lineaActual,
+		forma_pago_c				as formaPago,
+		tipo_docum_id_c				as tipoDocumentoÏd,
+		doc_identidad_c				as docIDentidad,
+		estado_civil_c				as estadoCivil,
+		profesion_c					as profesion,
+		precio_venta_c				as precioVenta,
+		fecha_matricula_c			as fechaMatricula,
+		fecha_nacimiento_c			as fechaNacimiento,
+		provincia_nacim_c			as provinciaNacim,
+		factura_c					as factura,
+		razon_social_c				as razonSocial,
+		importe_matricula_c			as importeMatricula,
+		segundo_import_matri_c		as segundoImporteMatricula,
+		fecha_primer_recibo_c		as fechaPrimerRecibo,
+		importe_recibos_c			as importeRecibos,
+		mensualidades_c				as mensualidades,
+		dia_mensualidad_c			as diaMensualidad,
+		forma_pago_recibos_c		as formaPagoRecibos,
+		precio_ofertado_c			as precioOfertado,
+		portal_c					as portal,
+		cif_c						as cif,
+		datos_factura_c				as datosFactura,
+		tipo_formacion_c			as tipoFormacion,
+		centros_c					as centros,
+		tipos_cursos_list_c			as tiposCursosList,
+		ano_nacimiento_c			as anoNacimiento		
+	FROM 
+		contacts_cstm
+	WHERE
+		id_c = #{id, jdbcType=VARCHAR}	    	
+	</select>
+	
+	<select id="getEmailsContactoById" parameterType="string" resultType="string">
+	SELECT
+		distinct email.email_address as email
+	FROM
+		email_addr_bean_rel rel
+	LEFT OUTER JOIN 
+		email_addresses email
+	ON 	
+		email.id = rel.email_address_id
+	WHERE
+		rel.bean_id = #{id, jdbcType=VARCHAR}
+		AND rel.bean_module="Contacts"
+	</select>
+	
+	<select id="getIdCursosContactoById" parameterType="string" resultType="string">
+	SELECT
+		cur01_curs84041_curso_ida	as idCurso
+	FROM
+		cur01_curso_contacts_c
+	WHERE
+		cur01_curs8931ontacts_idb = #{id, jdbcType=VARCHAR}	
+	</select>
+	
+</mapper>

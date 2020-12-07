@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.campus.mybatis.mapper.UsuarioMapper">
+	
+    <select id="getUsuarioById" parameterType="string" resultType="com.campus.mybatis.beans.Usuario">
+    SELECT
+    	id 					as id,
+    	user_name 			as userName,
+    	last_name 			as lastName,
+    	first_name 			as firstName,
+    	title 				as title,
+    	phone_home 			as phoneHome,
+    	phone_mobile		as phoneMobile,
+    	phone_work			as phoneWork,
+    	phone_other			as phoneOther,
+    	phone_fax			as phoneFax,
+    	address_street		as addressStreet,
+    	address_city		as addressCity,
+    	address_state		as addressState,
+    	address_country		as addressCountry,
+    	address_postalcode	as addressPostacode  	
+    FROM 
+    	users
+    WHERE
+    	id = #{id, jdbcType=VARCHAR}
+    </select>
+	
+	<select id="getAllUsuarios" resultType="com.campus.mybatis.beans.Usuario">
+    SELECT
+    	id 					as id,
+    	user_name 			as userName,
+    	last_name 			as lastName,
+    	first_name 			as firstName,
+    	title 				as title,
+    	phone_home 			as phoneHome,
+    	phone_mobile		as phoneMobile,
+    	phone_work			as phoneWork,
+    	phone_other			as phoneOther,
+    	phone_fax			as phoneFax,
+    	address_street		as addressStreet,
+    	address_city		as addressCity,
+    	address_state		as addressState,
+    	address_country		as addressCountry,
+    	address_postalcode	as addressPostacode  	
+    FROM 
+    	users
+    ORDER BY
+    	user_name
+	</select>
+	
+</mapper>

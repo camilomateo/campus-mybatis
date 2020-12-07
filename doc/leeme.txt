@@ -1,0 +1,18 @@
+com.campus.mybatis,test
+-----------------------
+-Aqui se encuentran los testeos unitarios
+
+-Se deben exportar 2 jar al directorio dist:
+
+-dist/campus-mybatis-test-jar
+
+  +Este es necesario para ejecutar mediante comando linea
+  y debe conteneter todas las librerias que necesita.
+
+  +Luego se debe copiar al proyecto Campus/web/test/
+  
+-dist/campus-mybatis.jar
+
+  +Este es necesario para el proyecto Campus y debe
+   copiarse en Campus/web/WEB-LIB/lib/
+

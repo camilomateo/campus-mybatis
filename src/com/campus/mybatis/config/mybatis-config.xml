@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/sugarcrmadmin" />
+				<property name="username" value="cami" />
+				<property name="password" value="ss-3101-e" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/campus/mybatis/mapper/ContactoMapper.xml" />
+		<mapper resource="com/campus/mybatis/mapper/CursoMapper.xml" />
+		<mapper resource="com/campus/mybatis/mapper/TipoCursoMapper.xml" />
+		<mapper resource="com/campus/mybatis/mapper/UsuarioMapper.xml" />
+	</mappers>
+	
+</configuration>
